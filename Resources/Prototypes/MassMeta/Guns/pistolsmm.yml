@@ -1,0 +1,122 @@
+- type: entity
+  name: Desert Eagle
+  parent: [BaseWeaponPistol, BaseSyndicateContraband]
+  id: WeaponPistolDeagleAE
+  description: Убойный самозарядный пистолет калибра 50 Action Express. Визитная карточка Израильского Военного Концерна.
+  components:
+  - type: Sprite
+    sprite: MM14/Guns/deagle.rsi
+  - type: Gun
+    fireRate: 4
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/mk58.ogg
+      params:
+        volume: +10
+    availableModes:
+    - SemiAuto
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazineDeagleAE
+        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - MagazineAE
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgeAE
+        priority: 1
+        whitelist:
+          tags:
+            - CartridgeAE
+
+- type: entity
+  id: BulletAE
+  name: пуля (.50 AE)
+  parent: BaseBullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 45
+
+- type: entity
+  id: BaseMagazineAE
+  name: Магазин Desert Eagle (.50 AE)
+  parent: [ BaseItem, BaseSecurityContraband ]
+  abstract: true
+  components:
+  - type: Tag
+    tags:
+      - MagazineAE
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+        - CartridgeAE
+    capacity: 7
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/Magazine/Pistol/pistol_mag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Appearance
+
+- type: entity
+  id: MagazineDeagleAE
+  name: Магазин Desert Eagle (.50 AE)
+  parent: BaseMagazineAE
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeAE
+  - type: Sprite
+    layers:
+    - state: red
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+
+- type: entity
+  id: BaseCartridgeAE
+  name: Гильза (.50 AE)
+  parent: [ BaseCartridge, BaseSecurityContraband ]
+  abstract: true
+  components:
+  - type: Tag
+    tags:
+      - Cartridge
+      - CartridgeAE
+  - type: CartridgeAmmo
+    proto: BulletAE
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    layers:
+      - state: base
+        map: [ "enum.AmmoVisualLayers.Base" ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+
+- type: entity
+  id: CartridgeAE
+  name: Гильза (.50 AE)
+  parent: BaseCartridgePistol
+  components:
+  - type: CartridgeAmmo
+    proto: BulletAE
+  

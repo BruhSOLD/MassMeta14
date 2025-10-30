@@ -1,8 +1,9 @@
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
   id: ClothingBackpackDuffelSyndicateFilledM90
-  name: Набор M-90
-  description: Набор со старой доброй балл-пап винтовкой M-90, несмотря на нерабочий подствольный гранатомет, все равно вполне хороший выбор оперативника.
+  suffix: "набор M90"
+  name: чёрно-красный вещмешок
+  description: Вместительный и удобный вещмешок цвета эбонита и крови, в который влезут игрушки для любых возрастов.
   components:
   - type: StorageFill
     contents:
